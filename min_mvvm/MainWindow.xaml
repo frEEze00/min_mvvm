@@ -6,7 +6,68 @@
         xmlns:local="clr-namespace:min_mvvm"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width"
+                    Value="40" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+        <ListBox Grid.Column="0"
+                 ItemsSource="{Binding Cells}"
+                 SelectedItem="{Binding SelectedCell}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!--<StackPanel Margin="5">
+                        <TextBlock FontSize="18"
+                                   Text="{Binding Path=Value}" />
+                        <TextBlock Text="{Binding Path=IsBomb}" />
+                        <TextBlock Text="{Binding Path=IsEmpty}" />
+                        <TextBlock Text="{Binding Path=IsOpen}" />
+                    </StackPanel>-->
+                    <local:CellControl 
+                                       IsEmpty="{Binding IsEmpty}"
+                                       Value="{Binding Value}"
+                                       IsOpen="{Binding IsOpen}">
+                    </local:CellControl>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1"
+                    DataContext="{Binding SelectedCell}">
+            <TextBlock Text="Выбранный элемент" />
+            <TextBlock Text="Модель" />
+            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Производитель" />
+            <TextBox Text="{Binding IsBomb, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Цена" />
+            <TextBox Text="{Binding IsEmpty, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Цена2" />
+            <TextBox Text="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal">
+            <Button Command="{Binding AddCommand}">+</Button>
+            <Button Command="{Binding RemoveCommand}"
+                    CommandParameter="{Binding SelectedCell}">-</Button>
+        </StackPanel>
     </Grid>
 </Window>

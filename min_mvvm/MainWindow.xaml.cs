@@ -20,6 +20,8 @@ namespace min_mvvm {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            DataContext = new ApplicationViewModel();
         }
+
     }
 }
